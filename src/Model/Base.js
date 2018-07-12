@@ -15,7 +15,7 @@ class BaseModel {
    * @static
    * @memberof BaseModel
    */
-  static boot ({ schema }) {
+  static boot({ schema }) {
 
   }
 
@@ -32,7 +32,7 @@ class BaseModel {
    * @chainable
    * @memberof BaseModel
    */
-  static addHook (event, callback) {
+  static addHook(event, callback) {
     const { instruction, command } = utils.formatToMongooseMiddleware(event)
 
     // Resolve callback if is hook
@@ -55,7 +55,7 @@ class BaseModel {
    * @returns {Closure} callback
    * @memberof BaseModel
    */
-  static __importHook (name) {
+  static __importHook(name) {
     const [className, methodName] = name.split('.')
     const hookClass = use('App/Models/Hooks/' + className)
 
@@ -81,7 +81,7 @@ class BaseModel {
    * @memberof BaseModel
    * @returns {Object}
    */
-  static get schema () {
+  static get schema() {
     throw new Error('You must override the static get schema() property')
   }
 
@@ -96,7 +96,7 @@ class BaseModel {
    * @static
    * @memberof BaseModel
    */
-  static get schemaOptions () {
+  static get schemaOptions() {
     return {}
   }
 
@@ -112,7 +112,7 @@ class BaseModel {
    * @memberof BaseModel
    * @returns {Schema}
    */
-  static buildSchema (options = {}) {
+  static buildSchema(options = {}) {
     if (this._schema) {
       return this._schema
     }
@@ -136,7 +136,7 @@ class BaseModel {
    * @returns
    * @memberof BaseModel
    */
-  static _getRawSchema () {
+  static _getRawSchema() {
     let schema = this.schema
     return schema
   }
@@ -148,7 +148,7 @@ class BaseModel {
    * @param {String} name
    * @returns {Mongoose Model}
    */
-  static buildModel (name) {
+  static buildModel(name, conn = null) {
     if (!name) {
       throw new Error('You must specify a model name on Model.buildModel("ModelName") ')
     }
@@ -163,10 +163,27 @@ class BaseModel {
       schema: this._schema
     })
 
-    return mongoose.model(name, this._schema)
+    if (conn) {
+
+      const connection = mongoose.connection.useDb(conn);
+
+      try {
+        return connection.model(name);
+      } catch (error) {
+        return connection.model(name, this._schema);
+      }
+    } else {
+      try {
+        return mongoose.model(name);
+      } catch (error) {
+        return mongoose.model(name, this._schema);
+      }
+    }
+
+    // return mongoose.model(name, this._schema)
   }
 
-  static index (...args) {
+  static index(...args) {
     // If the schema is yet not created
     if (!this._schema) {
       // Store indexes in temp array until the schema is created
@@ -180,7 +197,7 @@ class BaseModel {
     }
   }
 
-  static __createIndexes () {
+  static __createIndexes() {
     if (this.__indexes && this.__indexes.length) {
       this.__indexes.forEach((index) => this._schema.index(...index))
       this.__indexes = null
@@ -198,7 +215,7 @@ class BaseModel {
    * @memberof BaseModel
    * @returns {String}
    */
-  static get primaryKey () {
+  static get primaryKey() {
     return 'id'
   }
 
@@ -209,7 +226,7 @@ class BaseModel {
    * @memberof BaseModel
    * @returns {String}
    */
-  get primaryKey () {
+  get primaryKey() {
     return this.constructor.primaryKey
   }
 
@@ -221,7 +238,7 @@ class BaseModel {
    * @memberof BaseModel
    * @returns {Mixed}
    */
-  get primaryKeyValue () {
+  get primaryKeyValue() {
     return this[this.primaryKey]
   }
 }
