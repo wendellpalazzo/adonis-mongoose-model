@@ -33,4 +33,4 @@ class {{ name }} extends BaseModel {
   }
 }
 
-module.exports = {{ name }}.buildModel('{{ name }}')
+module.exports = (conn = null) => {{ name }}.buildModel('{{ name }}', conn)
