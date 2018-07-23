@@ -1,6 +1,8 @@
 'use strict'
 
 const BaseModel = use('MongooseModel')
+// const { accessibleRecordsPlugin, accessibleFieldsPlugin } = require('@casl/mongoose')
+
 
 /**
  * @class {{ name }}
@@ -16,6 +18,8 @@ class {{ name }} extends BaseModel {
   {{/exclude_timestamps}}
   {{#include_boot}}
   static boot ({ schema }) {
+    schema.plugin(accessibleRecordsPlugin);
+    schema.plugin(accessibleFieldsPlugin);
     // Hooks:
     // this.addHook('preSave', () => {})
     // this.addHook('preSave', '{{ name }}Hook.method')
