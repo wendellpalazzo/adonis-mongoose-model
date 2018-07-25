@@ -35,6 +35,13 @@ class {{ name }} extends BaseModel {
 
     }
   }
+
+  static get schemaOptions () {
+    return {
+      strict: false
+    }
+  }
+  
 }
 
 module.exports = (conn = null) => {{ name }}.buildModel('{{ name }}', conn)
