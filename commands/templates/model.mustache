@@ -26,6 +26,7 @@ class {{ name }} extends BaseModel {
     // Indexes:
     // this.index({}, {background: true})
   }
+
   {{/include_boot}}
   /**
    * {{ name }}'s schema
@@ -38,10 +39,9 @@ class {{ name }} extends BaseModel {
 
   static get schemaOptions () {
     return {
-      strict: false
+      // strict: false
     }
   }
-  
 }
 
 module.exports = (conn = null) => {{ name }}.buildModel('{{ name }}', conn)
