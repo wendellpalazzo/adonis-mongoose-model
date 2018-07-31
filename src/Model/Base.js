@@ -165,8 +165,6 @@ class BaseModel {
 
     if (conn) {
 
-      const connection = mongoose.connection.useDb(conn);
-
       try {
         return connection.model(name);
       } catch (error) {
