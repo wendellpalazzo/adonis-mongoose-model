@@ -6,6 +6,8 @@ const { accessibleRecordsPlugin, accessibleFieldsPlugin } = require('@casl/mongo
 
 /**
  * @class {{ name }}
+ * @param {mongooseConnection} [conn=null]
+ * @extends BaseModel
  */
 class {{ name }} extends BaseModel {
   {{#exclude_timestamps}}
@@ -17,8 +19,20 @@ class {{ name }} extends BaseModel {
   }
   {{/exclude_timestamps}}
   {{#include_boot}}
+  /**
+   * @static
+   * @param  {mongooseSchema} { schema }
+   */
   static boot ({ schema }) {
+    /**
+     * Plugin: accessibleRecordsPlugin
+     * @memberof {{ name }}.schema
+     */
     schema.plugin(accessibleRecordsPlugin);
+    /**
+     * Plugin: accessibleFieldsPlugin
+     * @memberof {{ name }}.schema
+     */
     schema.plugin(accessibleFieldsPlugin);
     // Hooks:
     // this.addHook('preSave', () => {})
@@ -36,7 +50,9 @@ class {{ name }} extends BaseModel {
 
     }
   }
-
+  /**
+   * {{ name }}'s schemaOptions
+   */
   static get schemaOptions () {
     return {
       // strict: false
