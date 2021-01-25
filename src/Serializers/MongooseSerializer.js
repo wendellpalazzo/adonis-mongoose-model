@@ -158,7 +158,7 @@ class MongooseSerializer {
    * @return {void}
    */
   async saveToken (user, token, type) {
-    let accessToken = new this._Token({
+    const accessToken = new this._Token({
       token, uid: user._id, type
     })
     debug('saving token for %s user', user._id)
@@ -193,11 +193,11 @@ class MongooseSerializer {
    */
   async deleteTokens (user, tokens = null, inverse = false) {
     if (tokens) {
-      debug('revoking %j tokens for %s user', tokens, user.primaryKeyValue())
+      debug('revoking %j tokens for %s user', tokens, user.primaryKeyValue)
     } else {
-      debug('revoking all tokens for %s user', user.primaryKeyValue())
+      debug('revoking all tokens for %s user', user.primaryKeyValue)
     }
-    return this._Token.dispose(user.primaryKeyValue(), tokens, inverse)
+    return this._Token.dispose(user.primaryKeyValue, tokens, inverse)
   }
 
   /**
@@ -213,7 +213,7 @@ class MongooseSerializer {
    */
   async listTokens (user, type) {
     return this._Token.find({
-      uid: user.primaryKeyValue(), type
+      uid: user.primaryKeyValue, type
     }).exec()
   }
 

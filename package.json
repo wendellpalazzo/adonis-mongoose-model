@@ -1,7 +1,7 @@
 {
   "name": "adonis-mongoose-model",
-  "version": "3.0.11",
-  "description": "Mongoose models for Adonis framework (wendell)",
+  "version": "3.2.0",
+  "description": "Mongoose models for Adonis framework",
   "main": "index.js",
   "repository": "git@github.com:juampi92/adonis-mongoose-model.git",
   "author": "Juan Pablo Barreto <juampi92@gmail.com>",
@@ -13,28 +13,22 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "mongoose": "^5.0.9"
+    "mongoose": "^5.7.0"
   },
   "peerDependencies": {
-    "@adonisjs/fold": "^4.0.5"
+    "@adonisjs/fold": "^4.0.9"
   },
   "scripts": {
     "lint": "standard",
+    "fix": "standard --fix",
     "pretest": "npm run lint",
-    "posttest": "npm run coverage",
-    "test:local": "FORCE_COLOR=true node bin/index.js --local",
-    "test": "nyc npm run test:local",
-    "test:win": "set FORCE_COLOR=true && node bin/index.js --win",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "test": "node japaFile.js"
   },
   "devDependencies": {
-    "coveralls": "^3.0.0",
-    "japa": "^1.0.6",
-    "japa-cli": "^1.0.1",
-    "nyc": "^11.4.1",
-    "semver": "^5.5.0",
-    "standard": "^11.0.0",
-    "@adonisjs/fold": "^4.0.5"
+    "@adonisjs/fold": "^4.0.9",
+    "japa": "^3.0.1",
+    "semver": "^6.3.0",
+    "standard": "^14.3.1"
   },
   "bugs": {
     "url": "https://github.com/juampi92/adonis-mongoose-model/issues"
