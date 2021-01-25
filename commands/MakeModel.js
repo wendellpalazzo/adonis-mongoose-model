@@ -69,11 +69,7 @@ class MakeMongoose extends Command {
    *
    * @method handle
    *
-   * @param {Object} parameters
-   * @param {String} parameters.name
-   * @param {Object} options
-   * @param {Boolean} options.simple = false
-   * @param {Boolean} options.raw = false
+   * @param  {String} options.name
    *
    * @return {void}
    */
@@ -103,7 +99,7 @@ class MakeMongoose extends Command {
      */
     name = name.split('/').pop()
 
-    const options = {}
+    let options = {}
 
     if (!simple && !raw) {
       options.timestamps = await this
