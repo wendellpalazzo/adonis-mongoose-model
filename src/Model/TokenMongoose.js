@@ -36,7 +36,7 @@ class Token extends Model {
    * Defines the amount of days
    *
    * @static
-   * @returns {Number}
+   * @returns {Numeric}
    */
   static expires () {
     return 5
@@ -94,9 +94,7 @@ class Token extends Model {
    * Remove sessions that match that token
    *
    * @static
-   * @param uid
-   * @param tokens Array of tokens to delete or preserve.
-   * @param inverse Delete all but the specified tokens.
+   * @param {any} token
    * @returns
    */
   static async dispose (uid, tokens = null, inverse = false) {
@@ -106,7 +104,7 @@ class Token extends Model {
       const selector = inverse ? '$nin' : '$in'
       return this.remove({
         uid,
-        token: { [selector]: tokens }
+        [selector]: tokens
       }).exec()
     }
     // Remove all tokens
